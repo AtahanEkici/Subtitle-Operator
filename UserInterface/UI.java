@@ -1,5 +1,5 @@
 package UserInterface;
-import static Utility.Utilities.Operate;import java.awt.event.ActionEvent;import java.awt.event.ActionListener;import java.io.File;import java.io.IOException;import java.util.logging.Level;import java.util.logging.Logger;import javax.swing.JButton;import javax.swing.JFileChooser;import javax.swing.JFrame;import javax.swing.JOptionPane;import javax.swing.UIManager;import javax.swing.UnsupportedLookAndFeelException;import javax.swing.filechooser.FileNameExtensionFilter;
+import static Utility.Utilities.Operate;import java.awt.event.ActionEvent;import java.awt.event.ActionListener;import java.io.File;import java.io.IOException;import java.util.logging.Level;import java.util.logging.Logger;import javax.swing.JButton;import javax.swing.JFileChooser;import javax.swing.JFrame;import javax.swing.JOptionPane;import javax.swing.JTextPane;import javax.swing.UIManager;import javax.swing.UnsupportedLookAndFeelException;import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Atahan Ekici
@@ -30,14 +30,16 @@ public final class UI extends JFrame implements ActionListener
     }
     
     // -------------------------- Swing Components ----------------------- //
-     private static JFrame main;
-     private static JButton Select_File;
-     private static JFileChooser jfc;
+    private static JFrame main;
+    private static JButton Select_File;
+    private static JFileChooser jfc;
+    private static JTextPane jtp;
      // -------------------------- Swing Components ----------------------- //
     
     private void constructMainFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
     {
        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+       
        main = new JFrame("Subtitle Operator"); 
        main.setSize(300, 250);
        main.setLayout(null);
@@ -45,12 +47,24 @@ public final class UI extends JFrame implements ActionListener
        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
        Select_File = new JButton("Select");
-       Select_File.setSize(90,30);
-       Select_File.setLocation(105,95);
+       Select_File.setSize(100,30);
+       Select_File.setLocation(100,15);
        Select_File.addActionListener(this);
+       
+       jtp = new JTextPane();
+       jtp.setText("Değiştirilecek Harfler:"
+               + "\n ç->c      Ç->C"
+               + "\n ğ->g      Ğ->G"
+               + "\n ı->i      İ->I"
+               + "\n ö->o      Ö->O"
+               + "\n ş->s      Ş->S"
+               + "\n ü->u      Ü->U");
+       jtp.setSize(100,120);
+       jtp.setLocation(100,50);
        
        main.setLocationRelativeTo(null);
        main.add(Select_File);
+       main.add(jtp);
        main.setVisible(true);
     }
     
