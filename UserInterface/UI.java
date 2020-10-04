@@ -1,5 +1,9 @@
 package UserInterface;
-import static Utility.Utilities.Operate;import java.awt.event.ActionEvent;import java.awt.event.ActionListener;import java.io.File;import java.io.IOException;import java.util.logging.Level;import java.util.logging.Logger;import javax.swing.JButton;import javax.swing.JFileChooser;import javax.swing.JFrame;import javax.swing.JOptionPane;import javax.swing.JTextPane;import javax.swing.UIManager;import javax.swing.UnsupportedLookAndFeelException;import javax.swing.filechooser.FileNameExtensionFilter;
+import static Utility.Utilities.Operate;import java.awt.Desktop;
+import java.awt.event.ActionEvent;import java.awt.event.ActionListener;import java.io.File;import java.io.IOException;import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;import java.util.logging.Logger;import javax.swing.JButton;import javax.swing.JFileChooser;import javax.swing.JFrame;import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;import javax.swing.JTextPane;import javax.swing.UIManager;import javax.swing.UnsupportedLookAndFeelException;import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Atahan Ekici
@@ -31,9 +35,10 @@ public final class UI extends JFrame implements ActionListener
     
     // -------------------------- Swing Components ----------------------- //
     private static JFrame main;
-    private static JButton Select_File;
+    private static JButton Select_File,menu_button;
     private static JFileChooser jfc;
     private static JTextPane jtp;
+    private static JMenuBar jmb;
      // -------------------------- Swing Components ----------------------- //
     
     private void constructMainFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
@@ -45,6 +50,16 @@ public final class UI extends JFrame implements ActionListener
        main.setLayout(null);
        main.setResizable(false);
        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+       jmb = new JMenuBar();
+       main.setJMenuBar(jmb);
+       
+       menu_button = new JButton("GitHub");
+       menu_button.setOpaque(true);
+       menu_button.setFocusable(false);
+       menu_button.addActionListener(this);
+       
+       jmb.add(menu_button);
        
        Select_File = new JButton("Select");
        Select_File.setSize(100,30);
@@ -102,8 +117,24 @@ public final class UI extends JFrame implements ActionListener
           } 
           catch (IOException ex) 
           {
-            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,""+ex+"",e.getClass().getCanonicalName(),JOptionPane.ERROR_MESSAGE);
           }
+      }
+      else if(e.getSource() == menu_button)
+      {
+          if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
+            {
+                {
+                    try 
+                    {
+                        Desktop.getDesktop().browse(new URI("https://github.com/AtahanEkici/Subtitle-Operator"));
+                    } 
+                    catch (URISyntaxException | IOException ex)
+                    {
+                       JOptionPane.showMessageDialog(null,""+ex+"",e.getClass().getCanonicalName(),JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+}
       }
     }
 }
