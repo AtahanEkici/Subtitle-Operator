@@ -1,7 +1,5 @@
 package Utility;
-import java.io.BufferedReader;import java.io.BufferedWriter;import java.io.File;import java.io.FileInputStream;
-import java.io.FileNotFoundException;import java.io.FileOutputStream;import java.io.FileReader;import java.io.IOException;import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;import java.nio.ByteBuffer;import java.nio.charset.StandardCharsets;import javax.swing.JOptionPane;
+import java.io.BufferedReader;import java.io.BufferedWriter;import java.io.File;import java.io.FileNotFoundException;import java.io.FileOutputStream;import java.io.FileReader;import java.io.IOException;import java.io.OutputStreamWriter;import java.nio.ByteBuffer;import java.nio.charset.StandardCharsets;import javax.swing.JOptionPane;
 /**
  *
  * @author Atahan Ekici
@@ -14,27 +12,6 @@ public class Utilities
       String utf8EncodedString = StandardCharsets.UTF_8.decode(buffer).toString();
       return utf8EncodedString;
     }
-/*
-    public static void changeEncoding(File file)
-    {
-        String content = FileUtils.readFileToString(file, "ISO8859_1");
-        FileUtils.write(file, content, "UTF-8");
-    }
-*/ 
-   public static void transform(File source, String srcEncoding, String tgtEncoding) throws IOException 
-   {
-    try
-    (
-      BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(source), srcEncoding));
-      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(source), tgtEncoding)); 
-    ) 
-    {
-        char[] buffer = new char[16384];
-        int read;
-        while((read = br.read(buffer)) != -1)
-        bw.write(buffer, 0, read);
-    } 
-}
     
     public static void fileAppender(File file , String line)
     {
